@@ -3,11 +3,15 @@ body {
     font-family: 'Open Sans', sans-serif;
     background-color: #F32E88;
 }
+form {
+    margin-bottom: 20px;
+}
 button {
     background-color: rgba(1, 1, 1, 0);
     outline: none;
     text-decoration: none;
     border: 0;
+    cursor: pointer;
 }
 #section {
     display: flex;
@@ -15,12 +19,19 @@ button {
     justify-content: center;
 }
 .container {
-    background-color: #3B424C;
     width: 50%;
+    margin: 0 auto;
+}
+.container__block {
+    width: 100%;    
+}
+.container__create {
+    background-color: #3B424C;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
+    padding-bottom: 100px;
+    margin-bottom: 50px;
 }
 .container__paragraph {
     color: #FFE8FF;
@@ -45,19 +56,41 @@ button {
 }
 .block__active1 {
     background-color: #F32E88;
-    fill: #2B2D31;
+    fill: white;
     width: 100%;
-    color: #2B2D31;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 .block__active2 {
     background-color: #2B2D31;
     width: 100%;
     fill:#F32E88;
     color: #F32E88;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.output {
+    background-color: #3B424C;
+    padding: 50px;
 }
 .block__active1 svg{
-    fill: #2B2D31;
+    fill: white;
 }
 .block__active2 svg{
     fill:#F32E88;
+}
+
+.btns,
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    row-gap: 20px;
 }

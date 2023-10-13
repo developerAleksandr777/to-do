@@ -2,6 +2,8 @@ const output = document.querySelector('.output')
 const form = document.querySelector('form')
 const input = document.querySelector('input')
 const delBtn = document.querySelector('.container__delete__btn')
+const countWrapper = document.querySelector('.countWrapper')
+
 
 let todos = []
 
@@ -37,18 +39,27 @@ form.addEventListener('submit', (e) => {
 
 const renderTodos = () => {
     output.innerHTML = ''
-    const ol = document.createElement('ol')
-    todos.forEach((el) => {
+    todos.forEach((el,index) => {
         const block = document.createElement('div')
         const message = document.createElement('p')
         const edit = document.createElement('button')
         const deleteBtn = document.createElement('button')
         const done = document.createElement('button')
         const status = document.createElement('p')
+        const btns = document.createElement('div')
+        const info = document.createElement('div')
+        const number = document.createElement('p')
+        const date = document.createElement('p')
+        const col = document.createElement('p')
 
-        const li = document.createElement('li')
+        number.className = 'num'
+        btns.className = 'btns'
+        info.className = 'info'
 
-        message.textContent = el.message
+        col.textContent = `Number: ${index + 1}`
+        date.textContent = generateDate(el.date)
+
+        message.textContent = `Task: ${el.message}`
 
         edit.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -71,7 +82,7 @@ const renderTodos = () => {
 
         block.className = 'container__block'
         
-        block.style.background = el.status ? li.classList = 'block__active1' : li.classList = 'block__active2'
+        block.style.background = el.status ? block.classList = 'block__active1' : block.classList = 'block__active2'
 
         
         if (el.status) {
@@ -96,14 +107,23 @@ const renderTodos = () => {
             doneTodo(el.id)
         })
 
-        output.append(ol)
-        ol.append(li)
-        li.append(message,status,edit,deleteBtn,done)
+        output.append(block)
+        block.append(info,btns)
+        btns.append(edit,deleteBtn,done)
+        info.append(message,status, number, col ,date)
     })
-
+    countDoneAndAllTodos()
 }
 
-
+const countDoneAndAllTodos = () => {
+    const number = document.querySelector('.num')
+    if (todos.length > 0) {
+        const doneTodos = todos.filter(el => el.status)
+        number.textContent = `Quantity: ${doneTodos.length}/${todos.length}`
+    } else {
+        number.textContent = ''
+    }
+}
 
 
 const editTodo = (id) => {
@@ -149,4 +169,23 @@ const doneTodo = (id) => {
     })
     console.log(todos)
     renderTodos()
+}
+
+const generateDate = (date) => {
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+    const hours = date.getHours()
+    const minutes = date.getMinutes()
+    const seconds = date.getSeconds()
+
+    const generateZeroToDate = (time) => {
+        return time < 10 ? '0' + time : time
+    }
+    const [newMinutes, newSeconds, newDays] = [minutes, seconds, day].map(el => {
+        return generateZeroToDate(el)
+    })
+
+
+    return `Date: ${newDays}-${month}-${year} ${hours}:${newMinutes}:${newSeconds}`
 }
